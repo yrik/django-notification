@@ -269,12 +269,14 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
     
     protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
     current_site = Site.objects.get_current()
-    
-    notices_url = u"%s://%s%s" % (
-        protocol,
-        unicode(current_site),
-        reverse("notification_notices"),
-    )
+    try:
+        notices_url = u"%s://%s%s" % (
+            protocol,
+            unicode(current_site),
+            reverse("notification_notices"),
+        )
+    except NoReverseMatch:
+        notices_url = None
     
     current_language = get_language()
     
