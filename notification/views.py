@@ -8,7 +8,7 @@ from notification.models import *
 
 
 @login_required
-def notice_settings(request):
+def notice_settings(request, template_name="notification/notice_settings.html"):
     """
     The notice settings view.
     
@@ -55,7 +55,7 @@ def notice_settings(request):
         "rows": settings_table,
     }
     
-    return render_to_response("notification/notice_settings.html", {
+    return render_to_response(template_name, {
         "notice_types": notice_types,
         "notice_settings": notice_settings,
     }, context_instance=RequestContext(request))
